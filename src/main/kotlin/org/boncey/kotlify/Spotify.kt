@@ -66,31 +66,36 @@ class Spotify {
         println("Longest track (${max?.name}) ${formatMilliseconds(max?.durationMs ?: 0)}")
         println("Shortest track (${min?.name}) ${formatMilliseconds(min?.durationMs ?: 0)}")
         println("Most Popular Artists")
-        artists.take(3).forEach { println("- ${it}") }
+        artists.take(5).forEach { println("- ${it}") }
         println("Most Popular Tracks")
-        songs.take(3).forEach { println("- ${it}") }
+        songs.take(5).forEach { println("- ${it}") }
     }
 
     private fun formatMilliseconds(durationMs: Int): String {
         val duration = durationMs / 1000
-        val hoursNum = duration / 3600
-        val minsNum = (duration % 3600) / 60
+        val daysNum = duration / (3600 * 24)
+        val hoursNum = (duration / 3600) % 24
+        val minsNum = (duration / 60) % 60
         val secsNum = (duration % 60)
 
+        val days = if (daysNum > 0) String.format(
+            "%d days",
+            daysNum
+        ) else null
         val hours = if (hoursNum > 0) String.format(
             "%d hours",
-            duration / 3600
+            hoursNum
         ) else null
         val mins = if (minsNum > 0) String.format(
             "%02d minutes",
-            (duration % 3600) / 60
+            minsNum
         ) else null
         val secs = if (secsNum > 0) String.format(
             "%02d seconds",
-            (duration % 60)
+            secsNum
         ) else null
 
-        return listOfNotNull(hours, mins, secs).joinToString(", ")
+        return listOfNotNull(days, hours, mins, secs).joinToString(", ")
     }
 
     private fun parse(playlistLink: String): String {
