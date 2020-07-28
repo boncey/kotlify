@@ -9,7 +9,7 @@ import com.wrapper.spotify.model_objects.specification.Track
 import java.nio.file.Files
 import java.nio.file.Path
 
-class Spotify {
+class Kotlify {
 
     private val spotifyClientId: String = System.getenv("SPOTIFY_CLIENT_ID")
     private val spotifyClientSecret: String = System.getenv("SPOTIFY_CLIENT_SECRET")
@@ -23,8 +23,7 @@ class Spotify {
         auth()
     }
 
-    fun getPlaylist(playlistLink: String): Playlist? {
-        val playlistId = parse(playlistLink)
+    fun getPlaylist(playlistId: String): Playlist? {
         println("Looking up playlist id: $playlistId")
         val playlister = Playlister()
         return try {
@@ -98,12 +97,6 @@ class Spotify {
         return listOfNotNull(days, hours, mins, secs).joinToString(", ")
     }
 
-    private fun parse(playlistLink: String): String {
-        val regex = Regex("https://open.spotify.com/playlist/(\\w+)\\?si=\\w+")
-        val match = regex.find(playlistLink)
-        return match?.destructured?.component1() ?: playlistLink
-    }
-
     private fun auth() {
         val clientCredentialsRequest = this.spotifyApi.clientCredentials().build()
         val clientCredentials = clientCredentialsRequest.execute()
@@ -117,7 +110,7 @@ class Spotify {
 fun main(args: Array<String>) {
     val playlistIds: List<String?> = readPlaylistIds(args.first())
 
-    val spotify = Spotify()
+    val spotify = Kotlify()
     val allTracks: MutableList<Track> = mutableListOf()
     for (playlistId in playlistIds) {
         val playlist = playlistId?.let { spotify.getPlaylist(it) }
