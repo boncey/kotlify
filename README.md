@@ -1,9 +1,9 @@
 # Kotlify
 
 Simple tool to analyse Spotify playlists.  
-Uses [thelinmichael/spotify-web-api-java](https://github.com/thelinmichael/spotify-web-api-java) for the Spotify API access.
+Uses [thelinmichael/spotify-web-api-java](https://github.com/thelinmichael/spotify-web-api-java) for Spotify API access.
 
-Environment variables required (see [Authorization Guide | Spotify for Developers](https://developer.spotify.com/documentation/general/guides/authorization-guide/) && [spotify-web-api-java#Authorization](https://github.com/thelinmichael/spotify-web-api-java#Authorization) for details).
+Environment variables required (see [Authorization Guide | Spotify for Developers](https://developer.spotify.com/documentation/general/guides/authorization-guide/) and [spotify-web-api-java#Authorization](https://github.com/thelinmichael/spotify-web-api-java#Authorization) for details).
 
 - `SPOTIFY_CLIENT_SECRET`
 - `SPOTIFY_CLIENT_ID`
@@ -26,7 +26,7 @@ Run a build
 Execute the program
 
 ```shell script
-    java -jar target/kotlify-1.0-SNAPSHOT.jar playlists.txt
+    SPOTIFY_CLIENT_SECRET=XXX SPOTIFY_CLIENT_ID=XXX java -jar target/kotlify-1.0-SNAPSHOT-shaded.jar playlists.txt
 ```
 
 Example output.
